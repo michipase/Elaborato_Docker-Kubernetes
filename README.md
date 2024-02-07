@@ -1,7 +1,7 @@
 Michele Pasetto VR495361
 # Introduction to Docker & Kubernetes
 ## Docker Installation
-From official Docker website [Docker Docs](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository), the following script has beeh used to add Docker GPG key and use it to install the newly added apt package.
+From the official Docker website [Docker Docs](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository), the following script has been used to add the Docker GPG key and use it to install the newly added apt package.
 
 ```bash
 # Add Docker's official GPG key:
@@ -24,7 +24,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 # Test installation
 sudo docker run hello-world
 ```
-Which execution, prompts he correct Hello world message from the test container.
+Upon execution, this prompts the correct "Hello World" message from the test container.
 
 ```console
 x@y:~/docker-kubernetes-univr$ sudo docker run hello-world
@@ -52,7 +52,8 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
-The correctness of the procedure is also confirmed by checking the current installed version of Docker.
+The correctness of the procedure is also confirmed by checking the currently installed version of Docker.
+
 ```console
 gingko@y:~/docker-kubernetes-univr$ docker --version
 Docker version 25.0.3, build 4debf41
@@ -60,14 +61,15 @@ Docker version 25.0.3, build 4debf41
 
 ## Minikube setup
 ### Install minikube
-From the [official documentation](https://minikube.sigs.k8s.io/docs/start/), the binary minikube has been download and installed in `/usr/local/bin/minikube`.
+From the [official documentation](https://minikube.sigs.k8s.io/docs/start/), the binary minikube has been downloaded and installed in `/usr/local/bin/minikube`.
 
 ```bash
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 
-The minikube can now be started
+The minikube can now be started.
+
 ```console
 x@y:~/docker-kubernetes-univr$ minikube start
 😄  minikube v1.32.0 on Ubuntu 22.04
@@ -90,14 +92,16 @@ x@y:~/docker-kubernetes-univr$ minikube start
 🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 ```
 
-Also an alias for minikube kubectl can be created using:
+Also, an alias for Minikube's kubectl can be created using:
+
 ```bash
 alias kubectl="minikube kubectl --"
 ```
-Keep in mind this alias is only temporary, as it will not be loaded again in the next terminal session. It can be made permanet adding it to your `.bash_aliases` or `.bashrc` which is usually found in home folder.
+Keep in mind this alias is only temporary, as it will not be loaded again in the next terminal session. It can be made permanent by adding it to your `.bash_aliases` or `.bashrc`, which is usually found in the home folder.
 
 ### Minikube addons
-For the purpose of the test, ingress addon has been added to our minikube.
+For the purpose of the test, the Ingress addon has been added to our Minikube.
+
 minikube addons enable ingress
 ```console
 x@y:~/docker-kubernetes-univr$ minikube addons enable ingress
@@ -111,7 +115,7 @@ You can view the list of minikube maintainers at: https://github.com/kubernetes/
 ```
 
 ### extract minikube IP
-The minikube IP can be found with
+The minikube IP can be found with:
 ```console
 x@y:~/docker-kubernetes-univr$ minikube ip
 192.168.59.100
@@ -125,12 +129,12 @@ x@y:~/docker-kubernetes-univr$ curl -O https://raw.githubusercontent.com/mmul-it
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1316  100  1316    0     0   1531      0 --:--:-- --:--:-- --:--:--  1532
 ```
-Using `sed` the host address for the ingress element can be changed to our minikube IP address
+Using `sed`, the host address for the Ingress element can be changed to our Minikube IP address.
 ```bash
 sed -i -e 's/host: .*/host: 192.168.59.100.nip.io/g' Kubernetes-From-Scratch-Wrap-Up-Test.yaml
 ```
 
-The yaml file gets loaded into the Minikube cluster
+The YAML file gets loaded into the Minikube cluster
 
 ```console
 x@y:~/docker-kubernetes-univr$ kubectl create -f Kubernetes-From-Scratch-Wrap-Up-Test.yaml
@@ -143,7 +147,7 @@ ingress.networking.k8s.io/mywebserver-ingress created
 
 # Test 1
 
-The previous commands will create all the resources specified in the YAML file, and can be check using
+The previous commands will create all the resources specified in the YAML file, and can be checked using
 ```console
 x@y:~/docker-kubernetes-univr$ kubectl -n myingress-test get all,ingress
 NAME              READY   STATUS    RESTARTS   AGE
@@ -156,10 +160,10 @@ NAME                                            CLASS   HOSTS                   
 ingress.networking.k8s.io/mywebserver-ingress   nginx   192.168.59.100.nip.io   192.168.59.100   80      98s
 ```
 
-The used YAML created a pod called "mywebserver" which allow traffic from port 80 (used by HTTP protocol) which looks like it is served using an nginx proxy.
+The used YAML created a pod called "mywebserver" which allows traffic from port 80 (used by HTTP protocol) and appears to be served using an nginx proxy.
 
 # Test 2
-Since HTTP server is used to serve resurced and usually website, we can use curl to make a GET request to our new server.
+Since an HTTP server is used to serve resources and usually websites, we can use curl to make a GET request to our new server.
 ```console
 x@y:~/docker-kubernetes-univr$ curl http://192.168.59.100.nip.io
 This is my Ingress/nginx test
