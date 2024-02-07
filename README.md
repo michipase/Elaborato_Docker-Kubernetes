@@ -141,7 +141,9 @@ service/mywebserver-svc created
 ingress.networking.k8s.io/mywebserver-ingress created
 ```
 
-This will create all the resources specified in the YAML file, and can be check using
+# Test 1
+
+The previous commands will create all the resources specified in the YAML file, and can be check using
 ```console
 x@y:~/docker-kubernetes-univr$ kubectl -n myingress-test get all,ingress
 NAME              READY   STATUS    RESTARTS   AGE
@@ -153,3 +155,13 @@ service/mywebserver-svc   ClusterIP   10.108.219.177   <none>        80/TCP    9
 NAME                                            CLASS   HOSTS                   ADDRESS          PORTS   AGE
 ingress.networking.k8s.io/mywebserver-ingress   nginx   192.168.59.100.nip.io   192.168.59.100   80      98s
 ```
+
+The used YAML created a pod called "mywebserver" which allow traffic from port 80 (used by HTTP protocol) which looks like it is served using an nginx proxy.
+
+# Test 2
+Since HTTP server is used to serve resurced and usually website, we can use curl to make a GET request to our new server.
+```console
+x@y:~/docker-kubernetes-univr$ curl http://192.168.59.100.nip.io
+This is my Ingress/nginx test
+Good job!
+``` 
