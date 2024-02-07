@@ -1,7 +1,8 @@
 Michele Pasetto VR495361
-# Introduzione a Docker & Kubernetes
-## Installazione Docker
-Dal sito ufficiale [Docker Docs](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository), è stato eseguito il seguente script per installare Docker e tutti i componenti e plugins utili per l'elaborato
+# Introduction to Docker & Kubernetes
+## Docker Installation
+From official Docker website [Docker Docs](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository), the following script has beeh used to add Docker GPG key and use it to install the newly added apt package.
+
 ```bash
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -23,8 +24,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 # Test installation
 sudo docker run hello-world
 ```
-
-All'esecuzione del quale, correttamente compare il messaggio dal docker di test "hello-world"
+Which execution, prompts he correct Hello world message from the test container.
 
 ```console
 x@y:~/docker-kubernetes-univr$ sudo docker run hello-world
@@ -52,7 +52,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
-Questo conferma la corretta installazione di Docker.
+The correctness of the procedure is also confirmed by checking the current installed version of Docker.
 ```console
 gingko@y:~/docker-kubernetes-univr$ docker --version
 Docker version 25.0.3, build 4debf41
